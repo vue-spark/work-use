@@ -1,6 +1,6 @@
-# @vue-spark/work-use
+# @vue-spark/compose-kit
 
-一个为 Vue 工作场景设计的高效 use 库。
+面向复杂业务的组合式 Vue 工具包：可复用的 composables、SFC 组件与通用工具，显著提升开发效率。
 
 ## Sponsor
 

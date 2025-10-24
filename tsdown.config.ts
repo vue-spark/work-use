@@ -1,11 +1,18 @@
 import { defineConfig } from 'tsdown'
+import raw from 'unplugin-raw/rolldown'
+import vueJsx from 'unplugin-vue-jsx/rolldown'
+import vue from 'unplugin-vue/rolldown'
 
 export default defineConfig([
   {
-    entry: ['src/index.ts'],
+    target: 'chrome100',
+    entry: ['src/shared/index.ts', 'src/element-plus/index.ts'],
     platform: 'neutral',
     dts: {
       tsconfig: 'tsconfig.lib.json',
+      vue: true,
+      resolve: ['@antfu/utils', '@vueuse/core', 'type-fest'],
     },
+    plugins: [vue(), vueJsx(), raw()],
   },
 ])

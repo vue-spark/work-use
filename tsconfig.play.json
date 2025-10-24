@@ -1,0 +1,11 @@
+{
+  "extends": ["@vue/tsconfig/tsconfig.dom.json"],
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.cache/tsconfig.play.tsbuildinfo",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "types": ["vite/client", "element-plus/global"]
+  },
+  "include": ["playground"]
+}
