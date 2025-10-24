@@ -1,0 +1,57 @@
+:where(.kit-toolbar) {
+  --gap: calc(1em * 0.8);
+  --title-font-size: calc(1em + 2px);
+  --title-font-weight: 600;
+  --divider-color: #a0a0a0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap);
+}
+
+:where(.kit-toolbar),
+:where(.kit-toolbar) [class^='kit-toolbar__'] {
+  box-sizing: border-box;
+}
+
+:where(.kit-toolbar) > .kit-toolbar__left {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+:where(.kit-toolbar) > .kit-toolbar__left > .kit-toolbar__title {
+  font-size: var(--title-font-size);
+  font-weight: var(--title-font-weight);
+}
+
+:where(.kit-toolbar) > .kit-toolbar__left > .kit-toolbar__divider {
+  position: relative;
+  display: inline-block;
+  width: 1px;
+  height: 1em;
+  border-left: 1px var(--divider-color) solid;
+  margin: 0 0.6em;
+  vertical-align: middle;
+}
+
+:where(.kit-toolbar)
+  > .kit-toolbar__left:has(> .kit-toolbar__title:empty, > .kit-toolbar__content:empty)
+  > .kit-toolbar__divider {
+  display: none;
+}
+
+:where(.kit-toolbar) > .kit-toolbar__left > .kit-toolbar__content,
+:where(.kit-toolbar) > .kit-toolbar__extra {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+}
+
+:where(.kit-toolbar) > .kit-toolbar__left > .kit-toolbar__content > *,
+:where(.kit-toolbar) > .kit-toolbar__extra > * {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
