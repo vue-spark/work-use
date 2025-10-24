@@ -34,7 +34,6 @@ export interface SectionLayoutProps {
 
   /**
    * 布局高度
-   * @default '100%'
    */
   height?: string
 

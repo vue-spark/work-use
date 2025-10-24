@@ -20,3 +20,6 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+playground/types/auto-imports.d.ts
+playground/types/components.d.ts

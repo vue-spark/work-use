@@ -14,11 +14,7 @@ defineOptions({
   __cKitStaticCSS: css,
 })
 
-const {
-  card,
-  height = '100%',
-  onMainContentResize,
-} = defineProps<SectionLayoutProps>()
+const { card, height, onMainContentResize } = defineProps<SectionLayoutProps>()
 
 defineSlots<SectionLayoutSlots>()
 

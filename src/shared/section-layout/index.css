@@ -1,5 +1,7 @@
 :where(.kit-section-layout) {
   --gap: calc(1em * 0.8);
+
+  height: 100%;
 }
 
 :where(.kit-section-layout),
