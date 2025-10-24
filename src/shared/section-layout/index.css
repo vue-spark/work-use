@@ -1,0 +1,36 @@
+:where(.kit-section-layout) {
+  --gap: calc(1em * 0.8);
+}
+
+:where(.kit-section-layout),
+:where(.kit-section-layout) [class^='kit-section-layout__'] {
+  box-sizing: border-box;
+}
+
+:where(.kit-section-layout),
+:where(.kit-section-layout) > .kit-section-layout__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+:where(.kit-section-layout) > .kit-section-layout__top,
+:where(.kit-section-layout) > .kit-section-layout__main > .kit-section-layout__main-head,
+:where(.kit-section-layout) > .kit-section-layout__main > .kit-section-layout__main-foot,
+:where(.kit-section-layout) > .kit-section-layout__bottom {
+  flex: none;
+}
+
+:where(.kit-section-layout) > .kit-section-layout__main,
+:where(.kit-section-layout) > .kit-section-layout__main > .kit-section-layout__main-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+:where(.kit-section-layout) > .kit-section-layout__top:empty,
+:where(.kit-section-layout) > .kit-section-layout__main > .kit-section-layout__main-head:empty,
+:where(.kit-section-layout) > .kit-section-layout__main > .kit-section-layout__main-foot:empty,
+:where(.kit-section-layout) > .kit-section-layout__bottom:empty {
+  display: none !important;
+}
