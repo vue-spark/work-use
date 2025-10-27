@@ -44,6 +44,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/shared/use-pagination': RouteRecordInfo<
+      '/shared/use-pagination',
+      '/shared/use-pagination',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
   }
 
   /**
@@ -72,6 +79,12 @@ declare module 'vue-router/auto-routes' {
     'playground/src/pages/shared/toolbar.vue': {
       routes:
         | '/shared/toolbar'
+      views:
+        | never
+    }
+    'playground/src/pages/shared/use-pagination.vue': {
+      routes:
+        | '/shared/use-pagination'
       views:
         | never
     }
