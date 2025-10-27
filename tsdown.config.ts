@@ -6,7 +6,7 @@ import vue from 'unplugin-vue/rolldown'
 export default defineConfig([
   {
     target: 'chrome100',
-    entry: ['src/shared/index.ts', 'src/element-plus/index.ts'],
+    entry: ['src/shared/**/*', 'src/element-plus/**/*'],
     platform: 'neutral',
     dts: {
       tsconfig: 'tsconfig.lib.json',
