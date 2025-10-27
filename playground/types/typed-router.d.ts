@@ -30,6 +30,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/element-plus/pagination-render': RouteRecordInfo<
+      '/element-plus/pagination-render',
+      '/element-plus/pagination-render',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/shared/section-layout': RouteRecordInfo<
       '/shared/section-layout',
       '/shared/section-layout',
@@ -67,6 +74,12 @@ declare module 'vue-router/auto-routes' {
     'playground/src/pages/element-plus/columns-render.vue': {
       routes:
         | '/element-plus/columns-render'
+      views:
+        | never
+    }
+    'playground/src/pages/element-plus/pagination-render.vue': {
+      routes:
+        | '/element-plus/pagination-render'
       views:
         | never
     }
