@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ToolbarProps, ToolbarSlots } from './interface'
+import { createBEM } from '@/internal'
 import { loadCSS } from '@/internal/load-css'
 import css from './index.css?raw'
 
@@ -13,25 +14,25 @@ defineSlots<ToolbarSlots>()
 
 loadCSS()
 
-const ns = 'kit-toolbar'
+const bem = createBEM('toolbar')
 </script>
 
 <template>
-  <div :class="ns">
-    <div :class="[`${ns}__left`]">
+  <div :class="bem.b()">
+    <div :class="bem.e('left')">
       <div
         :style="titleStyle"
-        :class="[`${ns}__title`, titleClass]"
+        :class="[bem.e('title'), titleClass]"
       >
         <slot name="title">
           {{ title }}
         </slot>
       </div>
 
-      <div :class="[`${ns}__divider`]" />
+      <div :class="bem.e('divider')" />
 
       <div
-        :class="[`${ns}__content`, contentClass]"
+        :class="[bem.e('content'), contentClass]"
         :style="contentStyle"
       >
         <slot />
@@ -39,7 +40,7 @@ const ns = 'kit-toolbar'
     </div>
 
     <div
-      :class="[`${ns}__extra`, extraClass]"
+      :class="[bem.e('extra'), extraClass]"
       :style="extraStyle"
     >
       <slot name="extra" />
