@@ -6,8 +6,9 @@ export function loadCSS(): void {
   const componentOptions = getCurrentInstance()?.proxy?.$options
   if (
     !componentOptions ||
-    cssMap.has(componentOptions) ||
-    !componentOptions.__cKitStaticCSS
+    !componentOptions.__cKitStaticCSS ||
+    (cssMap.has(componentOptions) &&
+      cssMap.get(componentOptions) === componentOptions.__cKitStaticCSS)
   ) {
     return
   }
