@@ -7,9 +7,9 @@ import 'element-plus/theme-chalk/index.css'
 createApp(App)
   .use(router)
   .use(() => {
-    SectionLayout.configure({
+    SectionLayout.config = {
       cardClass: 'el-card el-card__body',
-    })
+    }
 
     PaginationRender.defaultProps = {
       background: true,
