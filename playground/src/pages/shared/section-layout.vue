@@ -6,7 +6,6 @@ import { SectionItem, SectionLayout, SectionMain } from '@/shared'
 // 布局配置
 const layoutConfig = reactive({
   direction: 'vertical' as SectionLayoutDirection,
-  height: '100%' as string | undefined,
   useNested: false,
 })
 
@@ -37,15 +36,6 @@ function handleMainResize(data: ElementSize) {
               横向
             </ElRadio>
           </ElRadioGroup>
-        </ElSpace>
-
-        <ElSpace>
-          <ElText> 布局高度: </ElText>
-          <ElInput
-            v-model="layoutConfig.height"
-            placeholder="示例：100%，1000px"
-            style="flex: 1"
-          />
         </ElSpace>
 
         <ElSpace>

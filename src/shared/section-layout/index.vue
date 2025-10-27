@@ -36,7 +36,6 @@ const direction = computed(() => props.direction || 'vertical')
       bem.m(direction),
       card && [bem.m('card'), config?.cardClass],
     ]"
-    :style="{ height }"
   >
     <slot />
   </div>

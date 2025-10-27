@@ -25,11 +25,6 @@ export interface SectionLayoutProps {
   direction?: SectionLayoutDirection
 
   /**
-   * 布局高度，仅推荐在最外层 SectionLayout 组件上设置
-   */
-  height?: string
-
-  /**
    * 是否为卡片样式
    */
   card?: boolean
