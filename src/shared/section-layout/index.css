@@ -1,38 +1,42 @@
-:where(.kit-section-layout) {
-  --gap: calc(1em * 0.8);
-
-  height: 100%;
-}
-
-:where(.kit-section-layout),
-:where(.kit-section-layout) [class^='kit-section-layout__'] {
+:where(.kit-section),
+:where(.kit-section) [class^='kit-section__'] {
   box-sizing: border-box;
 }
 
-:where(.kit-section-layout),
-:where(.kit-section-layout) > .kit-section-layout__main {
+:where(.kit-section) {
+  --gap: 0.75rem;
+
   display: flex;
-  flex-direction: column;
   gap: var(--gap);
+  height: 100%;
 }
 
-:where(.kit-section-layout) > .kit-section-layout__top,
-:where(.kit-section-layout) > .kit-section-layout__main > .kit-section-layout__main-head,
-:where(.kit-section-layout) > .kit-section-layout__main > .kit-section-layout__main-foot,
-:where(.kit-section-layout) > .kit-section-layout__bottom {
+/* Vertical mode (default) */
+:where(.kit-section--vertical) {
+  flex-direction: column;
+}
+
+/* Horizontal mode */
+:where(.kit-section--horizontal) {
+  flex-direction: row;
+}
+
+/* SectionItem - 固定尺寸的次要分区 */
+:where(.kit-section) > .kit-section__item {
   flex: none;
 }
 
-:where(.kit-section-layout) > .kit-section-layout__main,
-:where(.kit-section-layout) > .kit-section-layout__main > .kit-section-layout__main-content {
+/* SectionMain 和嵌套的 SectionLayout - 自动填充的主要分区 */
+:where(.kit-section--vertical) > :is(.kit-section, .kit-section__main) {
   flex: 1;
   min-height: 0;
+  height: auto;
   overflow-y: auto;
 }
 
-:where(.kit-section-layout) > .kit-section-layout__top:empty,
-:where(.kit-section-layout) > .kit-section-layout__main > .kit-section-layout__main-head:empty,
-:where(.kit-section-layout) > .kit-section-layout__main > .kit-section-layout__main-foot:empty,
-:where(.kit-section-layout) > .kit-section-layout__bottom:empty {
-  display: none !important;
+:where(.kit-section--horizontal) > :is(.kit-section, .kit-section__main) {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  overflow-x: auto;
 }

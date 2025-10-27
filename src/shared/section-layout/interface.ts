@@ -1,61 +1,61 @@
 import type { Arrayable } from 'type-fest'
-import type { StyleValue, VNodeChild } from 'vue'
 
-interface ElementSize {
+export interface SectionLayoutConfig {
+  /**
+   * 内置卡片样式类名，方便统一设置卡片样式
+   */
+  cardClass?: any
+}
+
+export interface ElementSize {
   width: number
   height: number
 }
 
-export type SectionLayoutCardArea = 'top' | 'main' | 'bottom'
+export type SectionLayoutDirection = 'vertical' | 'horizontal'
 
+/**
+ * SectionLayout 组件的属性
+ */
 export interface SectionLayoutProps {
-  // Outer sections
-  topStyle?: StyleValue
-  topClass?: any
-
-  mainStyle?: StyleValue
-  mainClass?: any
-
-  bottomStyle?: StyleValue
-  bottomClass?: any
-
-  // Inner sections within main
-  mainHeadStyle?: StyleValue
-  mainHeadClass?: any
-
-  mainContentStyle?: StyleValue
-  mainContentClass?: any
-
-  mainFootStyle?: StyleValue
-  mainFootClass?: any
-
-  // Card-like wrappers by area
-  card?: boolean | Arrayable<SectionLayoutCardArea>
+  /**
+   * 布局方向
+   * @default 'vertical'
+   */
+  direction?: SectionLayoutDirection
 
   /**
-   * 布局高度
+   * 布局高度，仅推荐在最外层 SectionLayout 组件上设置
    */
   height?: string
 
   /**
-   * 主内容区域尺寸变化回调（main-content）
+   * 是否为卡片样式
    */
-  onMainContentResize?: Arrayable<(data: ElementSize) => void>
+  card?: boolean
 }
 
-export interface SectionLayoutSlots {
-  // Outer
-  'top'?: () => VNodeChild
-  'main'?: () => VNodeChild
-  'bottom'?: () => VNodeChild
+/**
+ * SectionItem 组件的属性
+ */
+export interface SectionItemProps {
+  /**
+   * 是否为卡片样式
+   */
+  card?: boolean
+}
 
-  // Inner within main
-  'main-head'?: () => VNodeChild
-  'main-content'?: (data: ElementSize) => VNodeChild
-  'main-foot'?: () => VNodeChild
+/**
+ * SectionMain 组件的属性
+ */
+export interface SectionMainProps {
+  /**
+   * 是否为卡片样式
+   */
+  card?: boolean
 
   /**
-   * default 作为 main-content 的别名插槽
+   * 尺寸变化回调
    */
-  'default'?: (data: ElementSize) => VNodeChild
+  onResize?: Arrayable<(data: ElementSize) => void>
 }
