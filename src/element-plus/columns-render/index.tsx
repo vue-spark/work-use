@@ -133,7 +133,7 @@ export const ColumnsRender: FunctionalComponent<
   return vNodes
 }
 
-ColumnsRender.props = /* @__PURE__ */ {
+ColumnsRender.props = {
   columns: {
     type: Array,
     required: true,
