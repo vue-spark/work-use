@@ -1,10 +1,11 @@
 :where(.kit-section),
-:where(.kit-section) [class^='kit-section__'] {
+:where(.kit-section) :is(.kit-section__main, .kit-section__item) {
   box-sizing: border-box;
+  position: relative;
 }
 
 :where(.kit-section) {
-  --gap: 0.75rem;
+  --gap: 0.75em;
 
   display: flex;
   gap: var(--gap);

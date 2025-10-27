@@ -21,6 +21,7 @@
 }
 
 :where(.kit-toolbar) > .kit-toolbar__left > .kit-toolbar__title {
+  position: relative;
   font-size: var(--title-font-size);
   font-weight: var(--title-font-weight);
   line-height: 1;
@@ -32,7 +33,6 @@
   height: 1em;
   border-left: 1px var(--divider-color) solid;
   margin: 0 0.75em;
-  vertical-align: middle;
 }
 
 :where(.kit-toolbar)
