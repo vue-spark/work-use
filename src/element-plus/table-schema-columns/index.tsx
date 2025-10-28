@@ -27,7 +27,7 @@ export interface TableColumnSlots<T extends { [K: PropertyKey]: any } = any> {
   'expand'?: (data: { expanded: boolean }) => VNodeChild
 }
 
-export type ObjectTableColumnProps<T extends { [K: PropertyKey]: any } = any> =
+export type ObjectTableColumnSchema<T extends { [K: PropertyKey]: any } = any> =
   ComponentProps<typeof ElTableColumn> & {
     /**
      * 正常情况下应该是通过 `ComponentSlots<typeof ElTableColumn>` 提取出来，
@@ -35,12 +35,12 @@ export type ObjectTableColumnProps<T extends { [K: PropertyKey]: any } = any> =
      *
      * 若想在 `<template>` 中使用，则需要使用 `<template #[slotType]:[slotName]>`，
      * 其中 `[slotName]` 为 `slots.[slotType]` 设置的名称（仅支持字符串），
-     * 但是模板中会丢失 `TableColumnProps<T>` 的泛型提示！
+     * 但是模板中会丢失 `TableColumnSchema<T>` 的泛型提示！
      *
      * @example
      * ```ts
      * // script 部分
-     * const columns: TableColumnProps[] = [
+     * const columns: TableColumnSchema[] = [
      *   {
      *     prop: 'name',
      *     label: 'Name',
@@ -59,11 +59,11 @@ export type ObjectTableColumnProps<T extends { [K: PropertyKey]: any } = any> =
      *
      * ```html
      * <!-- template 部分 -->
-     * <TableColumnsRender :columns="columns">
+     * <TableSchemaColumns :columns="columns">
      *   <template #default:name="{ row }">
      *     {{ row.name }}
      *   </template>
-     * </TableColumnsRender>
+     * </TableSchemaColumns>
      * ```
      */
     slots?: {
@@ -75,35 +75,35 @@ export type ObjectTableColumnProps<T extends { [K: PropertyKey]: any } = any> =
     /**
      * 子列定义
      */
-    children?: TableColumnProps<T>[]
+    children?: TableColumnSchema<T>[]
   }
 
-type FalsyTableColumnProps = false | null | undefined
+type FalsyTableColumnSchema = false | null | undefined
 
-export type FunctionTableColumnProps = () => Exclude<
+export type FunctionTableColumnSchema = () => Exclude<
   VNodeChild,
   VNodeArrayChildren
 >
 
-export type TableColumnProps<T extends { [K: PropertyKey]: any } = any> =
-  | FalsyTableColumnProps |
-  ObjectTableColumnProps<T> |
-  FunctionTableColumnProps
+export type TableColumnSchema<T extends { [K: PropertyKey]: any } = any> =
+  | FalsyTableColumnSchema |
+  ObjectTableColumnSchema<T> |
+  FunctionTableColumnSchema
 
-export interface TableColumnsRenderProps {
+export interface TableSchemaColumnsProps {
   /**
    * 列定义，同 `ElTableColumn` 的属性，额外支持 `children` 用于定义子列，
    * 列的 `slots` 同 `ElTableColumn` 的 `slots`
    */
-  columns: TableColumnProps<any>[]
+  columns: TableColumnSchema<any>[]
 }
 
 /**
  * 由于 `ElTableColumn` 没有 `emit` 事件，这里只是为了类型占位
  */
-interface TableColumnsRenderEmits extends ObjectEmitsOptions {}
+interface TableSchemaColumnsEmits extends ObjectEmitsOptions {}
 
-export type TableColumnsRenderSlots = {
+export type TableSchemaColumnsSlots = {
   [K in keyof TableColumnSlots<any> as `${K}:${string}`]: NonNullable<
     TableColumnSlots<any>[K]
   >
@@ -111,10 +111,10 @@ export type TableColumnsRenderSlots = {
   [K: string]: (data: any) => VNodeChild
 }
 
-export const TableColumnsRender: FunctionalComponent<
-  TableColumnsRenderProps,
-  TableColumnsRenderEmits,
-  TableColumnsRenderSlots
+export const TableSchemaColumns: FunctionalComponent<
+  TableSchemaColumnsProps,
+  TableSchemaColumnsEmits,
+  TableSchemaColumnsSlots
 > = ({ columns }, { slots }) => {
   const vNodes: VNodeChild = []
 
@@ -142,7 +142,7 @@ export const TableColumnsRender: FunctionalComponent<
           ...finalSlots,
           default:
             children && !finalSlots.default
-              ? () => <TableColumnsRender columns={children} />
+              ? () => <TableSchemaColumns columns={children} />
               : finalSlots.default,
         }}
       </ElTableColumn>,
@@ -152,7 +152,7 @@ export const TableColumnsRender: FunctionalComponent<
   return vNodes
 }
 
-TableColumnsRender.props = {
+TableSchemaColumns.props = {
   columns: {
     type: Array,
     required: true,

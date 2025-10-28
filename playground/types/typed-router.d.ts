@@ -30,9 +30,9 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
-    '/element-plus/table-columns-render': RouteRecordInfo<
-      '/element-plus/table-columns-render',
-      '/element-plus/table-columns-render',
+    '/element-plus/table-schema-columns': RouteRecordInfo<
+      '/element-plus/table-schema-columns',
+      '/element-plus/table-schema-columns',
       Record<never, never>,
       Record<never, never>,
       | never
@@ -84,9 +84,9 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
-    'playground/src/pages/element-plus/table-columns-render.vue': {
+    'playground/src/pages/element-plus/table-schema-columns.vue': {
       routes:
-        | '/element-plus/table-columns-render'
+        | '/element-plus/table-schema-columns'
       views:
         | never
     }

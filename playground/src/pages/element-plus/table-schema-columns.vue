@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TableColumnProps } from '@/element-plus'
+import type { TableColumnSchema } from '@/element-plus'
 import { sleep } from '@antfu/utils'
 import { ElMessage } from 'element-plus'
 import { reactive, ref } from 'vue'
@@ -8,7 +8,7 @@ import {
   SectionItem,
   SectionLayout,
   SectionMain,
-  TableColumnsRender,
+  TableSchemaColumns,
   Toolbar,
   usePagination,
 } from '@/element-plus'
@@ -70,7 +70,7 @@ const basicData = ref<BasicDataItem[]>([
   },
 ])
 
-const basicColumns: TableColumnProps<BasicDataItem>[] = [
+const basicColumns: TableColumnSchema<BasicDataItem>[] = [
   {
     prop: 'id',
     label: 'ID',
@@ -143,7 +143,7 @@ const nestedData = ref<NestedDataItem[]>([
   },
 ])
 
-const nestedColumns: TableColumnProps<NestedDataItem>[] = [
+const nestedColumns: TableColumnSchema<NestedDataItem>[] = [
   {
     prop: 'date',
     label: '日期',
@@ -208,7 +208,7 @@ const slotData = ref<SlotDataItem[]>([
   { id: 4, product: 'AirPods Pro', price: 1899, stock: 50, category: '配件' },
 ])
 
-const slotColumns: TableColumnProps<SlotDataItem>[] = [
+const slotColumns: TableColumnSchema<SlotDataItem>[] = [
   {
     prop: 'id',
     label: 'ID',
@@ -298,7 +298,7 @@ const renderData = ref<RenderDataItem[]>([
   },
 ])
 
-const renderColumns: TableColumnProps<RenderDataItem>[] = [
+const renderColumns: TableColumnSchema<RenderDataItem>[] = [
   {
     prop: 'id',
     label: 'ID',
@@ -432,7 +432,7 @@ async function loadPaginationData(page: number, pageSize: number) {
 // 初始加载
 loadPaginationData(1, 10)
 
-const paginationColumns: TableColumnProps<PaginationDataItem>[] = [
+const paginationColumns: TableColumnSchema<PaginationDataItem>[] = [
   {
     type: 'selection',
     width: 55,
@@ -558,7 +558,7 @@ function getStockStatus(stock: number) {
         fill
       >
         <ElText tag="b">
-          TableColumnsRender 组件配置
+          TableSchemaColumns 组件配置
         </ElText>
 
         <ElSpace wrap>
@@ -605,7 +605,7 @@ function getStockStatus(stock: number) {
               fill
             >
               <ElText>
-                <code>TableColumnsRender</code> 是对 Element Plus 的
+                <code>TableSchemaColumns</code> 是对 Element Plus 的
                 <code>ElTableColumn</code> 组件的封装，
                 通过配置化的方式定义表格列，支持嵌套列、自定义插槽和渲染函数。
               </ElText>
@@ -616,14 +616,14 @@ function getStockStatus(stock: number) {
                 stripe
                 style="width: 100%"
               >
-                <TableColumnsRender :columns="basicColumns">
+                <TableSchemaColumns :columns="basicColumns">
                   <!-- 使用模板插槽自定义状态列 -->
                   <template #default:status="{ row }">
                     <ElTag :type="getStatusType(row.status)">
                       {{ getStatusText(row.status) }}
                     </ElTag>
                   </template>
-                </TableColumnsRender>
+                </TableSchemaColumns>
               </ElTable>
 
               <ElAlert
@@ -668,7 +668,7 @@ function getStockStatus(stock: number) {
                 border
                 style="width: 100%"
               >
-                <TableColumnsRender :columns="nestedColumns" />
+                <TableSchemaColumns :columns="nestedColumns" />
               </ElTable>
 
               <ElAlert
@@ -715,7 +715,7 @@ function getStockStatus(stock: number) {
                 stripe
                 style="width: 100%"
               >
-                <TableColumnsRender :columns="slotColumns">
+                <TableSchemaColumns :columns="slotColumns">
                   <!-- 产品名称插槽 -->
                   <template #default:product-cell="{ row }">
                     <ElText
@@ -747,7 +747,7 @@ function getStockStatus(stock: number) {
                       <span>{{ column.label }}</span>
                     </ElSpace>
                   </template>
-                </TableColumnsRender>
+                </TableSchemaColumns>
               </ElTable>
 
               <ElAlert
@@ -803,7 +803,7 @@ function getStockStatus(stock: number) {
                 stripe
                 style="width: 100%"
               >
-                <TableColumnsRender :columns="renderColumns">
+                <TableSchemaColumns :columns="renderColumns">
                   <!-- 标题列 -->
                   <template #default:render-title="{ row }">
                     <div style="display: flex; align-items: center; gap: 8px">
@@ -873,7 +873,7 @@ function getStockStatus(stock: number) {
                       </ElButton>
                     </ElSpace>
                   </template>
-                </TableColumnsRender>
+                </TableSchemaColumns>
               </ElTable>
 
               <ElAlert
@@ -948,7 +948,7 @@ function getStockStatus(stock: number) {
                 style="width: 100%"
                 @selection-change="handleSelectionChange"
               >
-                <TableColumnsRender :columns="paginationColumns">
+                <TableSchemaColumns :columns="paginationColumns">
                   <!-- 角色列 -->
                   <template #default:pagination-role="{ row }">
                     <ElTag
@@ -1004,7 +1004,7 @@ function getStockStatus(stock: number) {
                       </ElButton>
                     </ElSpace>
                   </template>
-                </TableColumnsRender>
+                </TableSchemaColumns>
               </ElTable>
 
               <div
@@ -1073,18 +1073,19 @@ function getStockStatus(stock: number) {
             >
               <div>
                 <ElText tag="b">
-                  属性 (TableColumnsRenderProps):
+                  属性 (TableSchemaColumnsProps):
                 </ElText>
                 <ul style="margin: 8px 0; padding-left: 20px">
                   <li>
-                    <code>columns</code>: TableColumnProps[]（必填）- 列定义数组
+                    <code>columns</code>: TableColumnSchema[]（必填）-
+                    列定义数组
                   </li>
                 </ul>
               </div>
 
               <div>
                 <ElText tag="b">
-                  列配置 (TableColumnProps):
+                  列配置 (TableColumnSchema):
                 </ElText>
                 <ul style="margin: 8px 0; padding-left: 20px">
                   <li><code>prop</code>: string - 对应列内容的字段名</li>
@@ -1105,7 +1106,7 @@ function getStockStatus(stock: number) {
                     列的类型
                   </li>
                   <li>
-                    <code>children</code>: TableColumnProps[] -
+                    <code>children</code>: TableColumnSchema[] -
                     子列定义（用于多级表头）
                   </li>
                   <li>
@@ -1126,7 +1127,7 @@ function getStockStatus(stock: number) {
 
               <div>
                 <ElText tag="b">
-                  插槽 (TableColumnsRenderSlots):
+                  插槽 (TableSchemaColumnsSlots):
                 </ElText>
                 <ul style="margin: 8px 0; padding-left: 20px">
                   <li>
