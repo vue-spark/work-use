@@ -1,8 +1,14 @@
 import type { TableColumnCtx } from 'element-plus'
-import type { FunctionalComponent, ObjectEmitsOptions, VNodeChild } from 'vue'
+import type {
+  FunctionalComponent,
+  ObjectEmitsOptions,
+  VNodeArrayChildren,
+  VNodeChild,
+} from 'vue'
 import type { ComponentProps } from 'vue-component-type-helpers'
-import { isString, objectMap } from '@antfu/utils'
+import { isFunction, isString, objectMap } from '@antfu/utils'
 import { ElTableColumn } from 'element-plus'
+import { isVNode } from 'vue'
 
 /**
  * `ElTableColumn` 的插槽类型
@@ -74,9 +80,15 @@ export type ObjectTableColumnProps<T extends { [K: PropertyKey]: any } = any> =
 
 type FalsyTableColumnProps = false | null | undefined
 
+export type FunctionTableColumnProps = () => Exclude<
+  VNodeChild,
+  VNodeArrayChildren
+>
+
 export type TableColumnProps<T extends { [K: PropertyKey]: any } = any> =
   | FalsyTableColumnProps |
-  ObjectTableColumnProps<T>
+  ObjectTableColumnProps<T> |
+  FunctionTableColumnProps
 
 export interface TableColumnsRenderProps {
   /**
@@ -108,6 +120,13 @@ export const TableColumnsRender: FunctionalComponent<
 
   for (const column of columns) {
     if (!column) {
+      continue
+    }
+
+    if (isFunction(column)) {
+      const vNode = column()
+      // 只有在返回 VNode 时才添加到列表中
+      isVNode(vNode) && vNodes.push(vNode)
       continue
     }
 
