@@ -7,7 +7,7 @@ import { ElTableColumn } from 'element-plus'
 /**
  * `ElTableColumn` 的插槽类型
  */
-export interface ColumnSlots<T extends { [K: PropertyKey]: any } = any> {
+export interface TableColumnSlots<T extends { [K: PropertyKey]: any } = any> {
   'default'?: (data: {
     row: T
     column: TableColumnCtx<T>
@@ -21,7 +21,7 @@ export interface ColumnSlots<T extends { [K: PropertyKey]: any } = any> {
   'expand'?: (data: { expanded: boolean }) => VNodeChild
 }
 
-export type ObjectColumnProps<T extends { [K: PropertyKey]: any } = any> =
+export type ObjectTableColumnProps<T extends { [K: PropertyKey]: any } = any> =
   ComponentProps<typeof ElTableColumn> & {
     /**
      * 正常情况下应该是通过 `ComponentSlots<typeof ElTableColumn>` 提取出来，
@@ -29,12 +29,12 @@ export type ObjectColumnProps<T extends { [K: PropertyKey]: any } = any> =
      *
      * 若想在 `<template>` 中使用，则需要使用 `<template #[slotType]:[slotName]>`，
      * 其中 `[slotName]` 为 `slots.[slotType]` 设置的名称（仅支持字符串），
-     * 但是模板中会丢失 `ColumnProps<T>` 的泛型提示！
+     * 但是模板中会丢失 `TableColumnProps<T>` 的泛型提示！
      *
      * @example
      * ```ts
      * // script 部分
-     * const columns: ColumnProps[] = [
+     * const columns: TableColumnProps[] = [
      *   {
      *     prop: 'name',
      *     label: 'Name',
@@ -53,15 +53,15 @@ export type ObjectColumnProps<T extends { [K: PropertyKey]: any } = any> =
      *
      * ```html
      * <!-- template 部分 -->
-     * <ColumnsRender :columns="columns">
+     * <TableColumnsRender :columns="columns">
      *   <template #default:name="{ row }">
      *     {{ row.name }}
      *   </template>
-     * </ColumnsRender>
+     * </TableColumnsRender>
      * ```
      */
     slots?: {
-      [K in keyof ColumnSlots<T>]: string | ColumnSlots<T>[K]
+      [K in keyof TableColumnSlots<T>]: string | TableColumnSlots<T>[K]
     } & {
       [K: string]: string | ((data: any) => VNodeChild)
     }
@@ -69,40 +69,40 @@ export type ObjectColumnProps<T extends { [K: PropertyKey]: any } = any> =
     /**
      * 子列定义
      */
-    children?: ColumnProps[]
+    children?: TableColumnProps<T>[]
   }
 
-type FalsyColumnProps = false | null | undefined
+type FalsyTableColumnProps = false | null | undefined
 
-export type ColumnProps<T extends { [K: PropertyKey]: any } = any> =
-  | FalsyColumnProps |
-  ObjectColumnProps<T>
+export type TableColumnProps<T extends { [K: PropertyKey]: any } = any> =
+  | FalsyTableColumnProps |
+  ObjectTableColumnProps<T>
 
-export interface ColumnsRenderProps {
+export interface TableColumnsRenderProps {
   /**
    * 列定义，同 `ElTableColumn` 的属性，额外支持 `children` 用于定义子列，
    * 列的 `slots` 同 `ElTableColumn` 的 `slots`
    */
-  columns: ColumnProps[]
+  columns: TableColumnProps<any>[]
 }
 
 /**
  * 由于 `ElTableColumn` 没有 `emit` 事件，这里只是为了类型占位
  */
-interface ColumnsRenderEmits extends ObjectEmitsOptions {}
+interface TableColumnsRenderEmits extends ObjectEmitsOptions {}
 
-export type ColumnsRenderSlots = {
-  [K in keyof ColumnSlots<any> as `${K}:${string}`]: NonNullable<
-    ColumnSlots<any>[K]
+export type TableColumnsRenderSlots = {
+  [K in keyof TableColumnSlots<any> as `${K}:${string}`]: NonNullable<
+    TableColumnSlots<any>[K]
   >
 } & {
   [K: string]: (data: any) => VNodeChild
 }
 
-export const ColumnsRender: FunctionalComponent<
-  ColumnsRenderProps,
-  ColumnsRenderEmits,
-  ColumnsRenderSlots
+export const TableColumnsRender: FunctionalComponent<
+  TableColumnsRenderProps,
+  TableColumnsRenderEmits,
+  TableColumnsRenderSlots
 > = ({ columns }, { slots }) => {
   const vNodes: VNodeChild = []
 
@@ -123,7 +123,7 @@ export const ColumnsRender: FunctionalComponent<
           ...finalSlots,
           default:
             children && !finalSlots.default
-              ? () => <ColumnsRender columns={children} />
+              ? () => <TableColumnsRender columns={children} />
               : finalSlots.default,
         }}
       </ElTableColumn>,
@@ -133,7 +133,7 @@ export const ColumnsRender: FunctionalComponent<
   return vNodes
 }
 
-ColumnsRender.props = {
+TableColumnsRender.props = {
   columns: {
     type: Array,
     required: true,
