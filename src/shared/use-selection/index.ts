@@ -1,4 +1,5 @@
 import type { ComputedRef, MaybeRefOrGetter } from 'vue'
+import { isFunction } from '@antfu/utils'
 import { computed, shallowReactive, toValue } from 'vue'
 
 export interface UseSelectionOptions<T = any, K = any> {
@@ -57,6 +58,17 @@ export interface UseSelectionReturn<T = any, K = any> {
     ignoreSelectable?: boolean,
   ) => void
   /**
+   * 批量切换选中项
+   * @param data 数据列表
+   * @param selected 是否选中
+   * @param ignoreSelectable 是否忽略 selectable 选项
+   */
+  batchToggleSelection: (
+    data: T[],
+    selected?: boolean,
+    ignoreSelectable?: boolean | ((data: T) => boolean | undefined),
+  ) => void
+  /**
    * 清空选中项
    */
   clearSelection: () => void
@@ -99,6 +111,15 @@ export function useSelection<T, K = any>({
       else {
         selection.delete(toKey(data))
       }
+    },
+    batchToggleSelection(data, selected, ignoreSelectable) {
+      const ignoreSelectableFn = isFunction(ignoreSelectable)
+        ? ignoreSelectable
+        : () => ignoreSelectable
+
+      data.forEach((item) => {
+        returned.toggleSelection(item, selected, ignoreSelectableFn(item))
+      })
     },
     clearSelection() {
       selection.clear()
