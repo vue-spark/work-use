@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import type { TableColumnSchema } from '@/element-plus'
+import type { ElTableColumnSchema } from '@/index'
 import { sleep } from '@antfu/utils'
 import { ElMessage } from 'element-plus'
 import { reactive, ref } from 'vue'
 import {
-  PaginationRender,
+  ElPaginationAdapter,
+  ElTableSchemaColumns,
   SectionItem,
   SectionLayout,
   SectionMain,
-  TableSchemaColumns,
   Toolbar,
   usePagination,
-} from '@/element-plus'
+} from '@/index'
 
 // 配置选项
 const config = reactive({
@@ -70,7 +70,7 @@ const basicData = ref<BasicDataItem[]>([
   },
 ])
 
-const basicColumns: TableColumnSchema<BasicDataItem>[] = [
+const basicColumns: ElTableColumnSchema<BasicDataItem>[] = [
   {
     prop: 'id',
     label: 'ID',
@@ -143,7 +143,7 @@ const nestedData = ref<NestedDataItem[]>([
   },
 ])
 
-const nestedColumns: TableColumnSchema<NestedDataItem>[] = [
+const nestedColumns: ElTableColumnSchema<NestedDataItem>[] = [
   {
     prop: 'date',
     label: '日期',
@@ -208,7 +208,7 @@ const slotData = ref<SlotDataItem[]>([
   { id: 4, product: 'AirPods Pro', price: 1899, stock: 50, category: '配件' },
 ])
 
-const slotColumns: TableColumnSchema<SlotDataItem>[] = [
+const slotColumns: ElTableColumnSchema<SlotDataItem>[] = [
   {
     prop: 'id',
     label: 'ID',
@@ -298,7 +298,7 @@ const renderData = ref<RenderDataItem[]>([
   },
 ])
 
-const renderColumns: TableColumnSchema<RenderDataItem>[] = [
+const renderColumns: ElTableColumnSchema<RenderDataItem>[] = [
   {
     prop: 'id',
     label: 'ID',
@@ -432,7 +432,7 @@ async function loadPaginationData(page: number, pageSize: number) {
 // 初始加载
 loadPaginationData(1, 10)
 
-const paginationColumns: TableColumnSchema<PaginationDataItem>[] = [
+const paginationColumns: ElTableColumnSchema<PaginationDataItem>[] = [
   {
     type: 'selection',
     width: 55,
@@ -558,7 +558,7 @@ function getStockStatus(stock: number) {
         fill
       >
         <ElText tag="b">
-          TableSchemaColumns 组件配置
+          ElTableSchemaColumns 组件配置
         </ElText>
 
         <ElSpace wrap>
@@ -605,7 +605,7 @@ function getStockStatus(stock: number) {
               fill
             >
               <ElText>
-                <code>TableSchemaColumns</code> 是对 Element Plus 的
+                <code>ElTableSchemaColumns</code> 是对 Element Plus 的
                 <code>ElTableColumn</code> 组件的封装，
                 通过配置化的方式定义表格列，支持嵌套列、自定义插槽和渲染函数。
               </ElText>
@@ -616,14 +616,14 @@ function getStockStatus(stock: number) {
                 stripe
                 style="width: 100%"
               >
-                <TableSchemaColumns :columns="basicColumns">
+                <ElTableSchemaColumns :columns="basicColumns">
                   <!-- 使用模板插槽自定义状态列 -->
                   <template #default:status="{ row }">
                     <ElTag :type="getStatusType(row.status)">
                       {{ getStatusText(row.status) }}
                     </ElTag>
                   </template>
-                </TableSchemaColumns>
+                </ElTableSchemaColumns>
               </ElTable>
 
               <ElAlert
@@ -668,7 +668,7 @@ function getStockStatus(stock: number) {
                 border
                 style="width: 100%"
               >
-                <TableSchemaColumns :columns="nestedColumns" />
+                <ElTableSchemaColumns :columns="nestedColumns" />
               </ElTable>
 
               <ElAlert
@@ -715,7 +715,7 @@ function getStockStatus(stock: number) {
                 stripe
                 style="width: 100%"
               >
-                <TableSchemaColumns :columns="slotColumns">
+                <ElTableSchemaColumns :columns="slotColumns">
                   <!-- 产品名称插槽 -->
                   <template #default:product-cell="{ row }">
                     <ElText
@@ -747,7 +747,7 @@ function getStockStatus(stock: number) {
                       <span>{{ column.label }}</span>
                     </ElSpace>
                   </template>
-                </TableSchemaColumns>
+                </ElTableSchemaColumns>
               </ElTable>
 
               <ElAlert
@@ -803,7 +803,7 @@ function getStockStatus(stock: number) {
                 stripe
                 style="width: 100%"
               >
-                <TableSchemaColumns :columns="renderColumns">
+                <ElTableSchemaColumns :columns="renderColumns">
                   <!-- 标题列 -->
                   <template #default:render-title="{ row }">
                     <div style="display: flex; align-items: center; gap: 8px">
@@ -873,7 +873,7 @@ function getStockStatus(stock: number) {
                       </ElButton>
                     </ElSpace>
                   </template>
-                </TableSchemaColumns>
+                </ElTableSchemaColumns>
               </ElTable>
 
               <ElAlert
@@ -912,7 +912,7 @@ function getStockStatus(stock: number) {
               fill
             >
               <ElText>
-                结合 <code>PaginationRender</code> 和
+                结合 <code>ElPaginationAdapter</code> 和
                 <code>usePagination</code>， 实现完整的分页表格功能。
               </ElText>
 
@@ -948,7 +948,7 @@ function getStockStatus(stock: number) {
                 style="width: 100%"
                 @selection-change="handleSelectionChange"
               >
-                <TableSchemaColumns :columns="paginationColumns">
+                <ElTableSchemaColumns :columns="paginationColumns">
                   <!-- 角色列 -->
                   <template #default:pagination-role="{ row }">
                     <ElTag
@@ -1004,7 +1004,7 @@ function getStockStatus(stock: number) {
                       </ElButton>
                     </ElSpace>
                   </template>
-                </TableSchemaColumns>
+                </ElTableSchemaColumns>
               </ElTable>
 
               <div
@@ -1014,7 +1014,7 @@ function getStockStatus(stock: number) {
                   align-items: center;
                 "
               >
-                <PaginationRender
+                <ElPaginationAdapter
                   :pagination="pagination"
                   background
                   layout="prev, pager, next, jumper, sizes, total"
@@ -1030,7 +1030,7 @@ function getStockStatus(stock: number) {
                       批量删除 ({{ selectedRows.length }})
                     </ElButton>
                   </div>
-                </PaginationRender>
+                </ElPaginationAdapter>
               </div>
 
               <ElAlert
@@ -1073,11 +1073,11 @@ function getStockStatus(stock: number) {
             >
               <div>
                 <ElText tag="b">
-                  属性 (TableSchemaColumnsProps):
+                  属性 (ElTableSchemaColumnsProps):
                 </ElText>
                 <ul style="margin: 8px 0; padding-left: 20px">
                   <li>
-                    <code>columns</code>: TableColumnSchema[]（必填）-
+                    <code>columns</code>: ElTableColumnSchema[]（必填）-
                     列定义数组
                   </li>
                 </ul>
@@ -1085,7 +1085,7 @@ function getStockStatus(stock: number) {
 
               <div>
                 <ElText tag="b">
-                  列配置 (TableColumnSchema):
+                  列配置 (ElTableColumnSchema):
                 </ElText>
                 <ul style="margin: 8px 0; padding-left: 20px">
                   <li><code>prop</code>: string - 对应列内容的字段名</li>
@@ -1106,7 +1106,7 @@ function getStockStatus(stock: number) {
                     列的类型
                   </li>
                   <li>
-                    <code>children</code>: TableColumnSchema[] -
+                    <code>children</code>: ElTableColumnSchema[] -
                     子列定义（用于多级表头）
                   </li>
                   <li>
@@ -1127,7 +1127,7 @@ function getStockStatus(stock: number) {
 
               <div>
                 <ElText tag="b">
-                  插槽 (TableSchemaColumnsSlots):
+                  插槽 (ElTableSchemaColumnsSlots):
                 </ElText>
                 <ul style="margin: 8px 0; padding-left: 20px">
                   <li>

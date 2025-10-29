@@ -13,7 +13,7 @@ import { isVNode } from 'vue'
 /**
  * `ElTableColumn` 的插槽类型
  */
-export interface TableColumnSlots<T extends { [K: PropertyKey]: any } = any> {
+export interface ElTableColumnSlots<T extends { [K: PropertyKey]: any } = any> {
   'default'?: (data: {
     row: T
     column: TableColumnCtx<T>
@@ -27,94 +27,95 @@ export interface TableColumnSlots<T extends { [K: PropertyKey]: any } = any> {
   'expand'?: (data: { expanded: boolean }) => VNodeChild
 }
 
-export type ObjectTableColumnSchema<T extends { [K: PropertyKey]: any } = any> =
-  ComponentProps<typeof ElTableColumn> & {
-    /**
-     * 正常情况下应该是通过 `ComponentSlots<typeof ElTableColumn>` 提取出来，
-     * 但是 `ElTableColumn` 类型定义存在缺失，这里根据官网进行补充并优化。
-     *
-     * 若想在 `<template>` 中使用，则需要使用 `<template #[slotType]:[slotName]>`，
-     * 其中 `[slotName]` 为 `slots.[slotType]` 设置的名称（仅支持字符串），
-     * 但是模板中会丢失 `TableColumnSchema<T>` 的泛型提示！
-     *
-     * @example
-     * ```ts
-     * // script 部分
-     * const columns: TableColumnSchema[] = [
-     *   {
-     *     prop: 'name',
-     *     label: 'Name',
-     *     slots: {
-     *       // 引用模板中的插槽
-     *       default: 'name',
-     *
-     *       // 使用自定义渲染函数
-     *       header({ column }) {
-     *         return <h3>{ column.label } - { Date.now() }</h3>
-     *       }
-     *     },
-     *   },
-     * ]
-     * ```
-     *
-     * ```html
-     * <!-- template 部分 -->
-     * <TableSchemaColumns :columns="columns">
-     *   <template #default:name="{ row }">
-     *     {{ row.name }}
-     *   </template>
-     * </TableSchemaColumns>
-     * ```
-     */
-    slots?: {
-      [K in keyof TableColumnSlots<T>]: string | TableColumnSlots<T>[K]
-    } & {
-      [K: string]: string | ((data: any) => VNodeChild)
-    }
-
-    /**
-     * 子列定义
-     */
-    children?: TableColumnSchema<T>[]
+export type ObjectElTableColumnSchema<
+  T extends { [K: PropertyKey]: any } = any,
+> = ComponentProps<typeof ElTableColumn> & {
+  /**
+   * 正常情况下应该是通过 `ComponentSlots<typeof ElTableColumn>` 提取出来，
+   * 但是 `ElTableColumn` 类型定义存在缺失，这里根据官网进行补充并优化。
+   *
+   * 若想在 `<template>` 中使用，则需要使用 `<template #[slotType]:[slotName]>`，
+   * 其中 `[slotName]` 为 `slots.[slotType]` 设置的名称（仅支持字符串），
+   * 但是模板中会丢失 `ElTableColumnSchema<T>` 的泛型提示！
+   *
+   * @example
+   * ```ts
+   * // script 部分
+   * const columns: ElTableColumnSchema[] = [
+   *   {
+   *     prop: 'name',
+   *     label: 'Name',
+   *     slots: {
+   *       // 引用模板中的插槽
+   *       default: 'name',
+   *
+   *       // 使用自定义渲染函数
+   *       header({ column }) {
+   *         return <h3>{ column.label } - { Date.now() }</h3>
+   *       }
+   *     },
+   *   },
+   * ]
+   * ```
+   *
+   * ```html
+   * <!-- template 部分 -->
+   * <ElTableSchemaColumns :columns="columns">
+   *   <template #default:name="{ row }">
+   *     {{ row.name }}
+   *   </template>
+   * </ElTableSchemaColumns>
+   * ```
+   */
+  slots?: {
+    [K in keyof ElTableColumnSlots<T>]: string | ElTableColumnSlots<T>[K]
+  } & {
+    [K: string]: string | ((data: any) => VNodeChild)
   }
 
-type FalsyTableColumnSchema = false | null | undefined
+  /**
+   * 子列定义
+   */
+  children?: ElTableColumnSchema<T>[]
+}
 
-export type FunctionTableColumnSchema = () => Exclude<
+type FalsyElTableColumnSchema = false | null | undefined
+
+export type FunctionElTableColumnSchema = () => Exclude<
   VNodeChild,
   VNodeArrayChildren
 >
 
-export type TableColumnSchema<T extends { [K: PropertyKey]: any } = any> =
-  | FalsyTableColumnSchema |
-  ObjectTableColumnSchema<T> |
-  FunctionTableColumnSchema
+export type ElTableColumnSchema<T extends { [K: PropertyKey]: any } = any> =
+  | FalsyElTableColumnSchema |
+  ObjectElTableColumnSchema<T> |
+  FunctionElTableColumnSchema
 
-export interface TableSchemaColumnsProps {
+export interface ElTableSchemaColumnsProps {
   /**
    * 列定义，同 `ElTableColumn` 的属性，额外支持 `children` 用于定义子列，
    * 列的 `slots` 同 `ElTableColumn` 的 `slots`
    */
-  columns: TableColumnSchema<any>[]
+  columns: ElTableColumnSchema<any>[]
 }
 
 /**
  * 由于 `ElTableColumn` 没有 `emit` 事件，这里只是为了类型占位
  */
-interface TableSchemaColumnsEmits extends ObjectEmitsOptions {}
+interface ElTableSchemaColumnsEmits extends ObjectEmitsOptions {}
 
-export type TableSchemaColumnsSlots = {
-  [K in keyof TableColumnSlots<any> as `${K}:${string}`]: NonNullable<
-    TableColumnSlots<any>[K]
+export type ElTableSchemaColumnsSlots = {
+  [K in keyof ElTableColumnSlots<any> as `${K}:${string}`]: NonNullable<
+    ElTableColumnSlots<any>[K]
   >
 } & {
   [K: string]: (data: any) => VNodeChild
 }
 
-export const TableSchemaColumns: FunctionalComponent<
-  TableSchemaColumnsProps,
-  TableSchemaColumnsEmits,
-  TableSchemaColumnsSlots
+export const ElTableSchemaColumns: FunctionalComponent<
+  ElTableSchemaColumnsProps,
+  ElTableSchemaColumnsEmits,
+  ElTableSchemaColumnsSlots
 > = ({ columns }, { slots }) => {
   const vNodes: VNodeChild = []
 
@@ -142,7 +143,7 @@ export const TableSchemaColumns: FunctionalComponent<
           ...finalSlots,
           default:
             children && !finalSlots.default
-              ? () => <TableSchemaColumns columns={children} />
+              ? () => <ElTableSchemaColumns columns={children} />
               : finalSlots.default,
         }}
       </ElTableColumn>,
@@ -152,7 +153,7 @@ export const TableSchemaColumns: FunctionalComponent<
   return vNodes
 }
 
-TableSchemaColumns.props = {
+ElTableSchemaColumns.props = {
   columns: {
     type: Array,
     required: true,
