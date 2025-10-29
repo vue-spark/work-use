@@ -10,19 +10,19 @@ import { objectPick } from '@antfu/utils'
 import { ElPagination } from 'element-plus'
 import { mergeProps } from 'vue'
 
-export interface PaginationRenderProps
+export interface ElPaginationAdapterProps
   extends Partial<
     Omit<ElPaginationProps, 'currentPage' | 'pageSize' | 'pageCount' | 'total'>
   > {
   /**
-   * 通过 `usePaginationReturn` 创建的控制器
+   * 通过 `usePagination` 创建的控制器
    */
   pagination: UsePaginationReturn
 }
 
-export interface PaginationRenderEmits extends ElPaginationEmits {}
+export interface ElPaginationAdapterEmits extends ElPaginationEmits {}
 
-export interface PaginationRenderSlots
+export interface ElPaginationAdapterSlots
   extends ComponentSlots<typeof ElPagination> {}
 
 const defaultPropKeys = [
@@ -32,10 +32,10 @@ const defaultPropKeys = [
   'pageSizes',
 ] as const
 
-export const PaginationRender: FunctionalComponent<
-  PaginationRenderProps,
-  PaginationRenderEmits,
-  PaginationRenderSlots
+export const ElPaginationAdapter: FunctionalComponent<
+  ElPaginationAdapterProps,
+  ElPaginationAdapterEmits,
+  ElPaginationAdapterSlots
 > & {
   defaultProps?: Partial<
     Pick<ElPaginationProps, (typeof defaultPropKeys)[number]>
@@ -45,7 +45,7 @@ export const PaginationRender: FunctionalComponent<
 
   const finalProps: Partial<ElPaginationProps> = mergeProps(
     objectPick(
-      PaginationRender.defaultProps || {},
+      ElPaginationAdapter.defaultProps || {},
       defaultPropKeys as Writable<typeof defaultPropKeys>,
     ),
 
@@ -73,7 +73,7 @@ export const PaginationRender: FunctionalComponent<
   return <ElPagination {...finalProps}>{slots}</ElPagination>
 }
 
-PaginationRender.props = {
+ElPaginationAdapter.props = {
   pagination: {
     type: Object,
     required: true,

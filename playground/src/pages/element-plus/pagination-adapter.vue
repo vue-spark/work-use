@@ -3,7 +3,7 @@ import { sleep } from '@antfu/utils'
 import { ElMessage } from 'element-plus'
 import { reactive, ref } from 'vue'
 import {
-  PaginationRender,
+  ElPaginationAdapter,
   SectionItem,
   SectionLayout,
   SectionMain,
@@ -106,7 +106,7 @@ const customDefaultPagination = usePagination({
 
 // 配置全局默认属性
 function applyGlobalDefaults() {
-  PaginationRender.defaultProps = {
+  ElPaginationAdapter.defaultProps = {
     background: config.background,
     layout: config.layout,
     pagerCount: config.pagerCount,
@@ -117,7 +117,7 @@ function applyGlobalDefaults() {
 
 // 重置全局默认属性
 function resetGlobalDefaults() {
-  PaginationRender.defaultProps = {
+  ElPaginationAdapter.defaultProps = {
     background: true,
     layout: 'prev, pager, next, jumper, sizes, total',
     pagerCount: 7,
@@ -162,7 +162,7 @@ function getStatusText(status: string) {
           fill
         >
           <ElText tag="b">
-            PaginationRender 组件配置
+            ElPaginationAdapter 组件配置
           </ElText>
 
           <ElSpace
@@ -260,12 +260,12 @@ function getStatusText(status: string) {
                 fill
               >
                 <ElText>
-                  <code>PaginationRender</code> 是对 Element Plus 的
+                  <code>ElPaginationAdapter</code> 是对 Element Plus 的
                   <code>ElPagination</code> 组件的封装， 通过
                   <code>usePagination</code> 返回的控制器自动管理分页状态。
                 </ElText>
 
-                <PaginationRender
+                <ElPaginationAdapter
                   :pagination="basicPagination"
                   :background="config.background"
                   :layout="config.layout"
@@ -286,7 +286,7 @@ function getStatusText(status: string) {
                       自定义操作
                     </ElButton>
                   </div>
-                </PaginationRender>
+                </ElPaginationAdapter>
 
                 <ElDescriptions
                   :column="2"
@@ -341,7 +341,7 @@ function getStatusText(status: string) {
                   </template>
                 </ElAlert>
 
-                <PaginationRender
+                <ElPaginationAdapter
                   :pagination="largePagination"
                   background
                   layout="prev, pager, next, jumper, total"
@@ -466,7 +466,7 @@ function getStatusText(status: string) {
                     align-items: center;
                   "
                 >
-                  <PaginationRender
+                  <ElPaginationAdapter
                     :pagination="tablePagination"
                     background
                     layout="prev, pager, next, jumper, sizes, total"
@@ -480,7 +480,7 @@ function getStatusText(status: string) {
                         批量删除
                       </ElButton>
                     </div>
-                  </PaginationRender>
+                  </ElPaginationAdapter>
                 </div>
               </ElSpace>
             </div>
@@ -506,7 +506,7 @@ function getStatusText(status: string) {
                   <code>layout</code> 中包含 <code>slot</code>。
                 </ElText>
 
-                <PaginationRender
+                <ElPaginationAdapter
                   :pagination="customDefaultPagination"
                   background
                   layout="slot, prev, pager, next, jumper, sizes, total"
@@ -525,11 +525,11 @@ function getStatusText(status: string) {
                       刷新
                     </ElButton>
                   </div>
-                </PaginationRender>
+                </ElPaginationAdapter>
 
                 <ElDivider />
 
-                <PaginationRender
+                <ElPaginationAdapter
                   :pagination="customDefaultPagination"
                   background
                   layout="slot, prev, pager, next"
@@ -539,7 +539,7 @@ function getStatusText(status: string) {
                       共 {{ customDefaultPagination.total.value }} 条记录
                     </ElTag>
                   </div>
-                </PaginationRender>
+                </ElPaginationAdapter>
               </ElSpace>
             </div>
           </div>
@@ -561,9 +561,9 @@ function getStatusText(status: string) {
               >
                 <ElText>
                   通过
-                  <code>PaginationRender.defaultProps</code>
+                  <code>ElPaginationAdapter.defaultProps</code>
                   可以设置全局默认属性， 所有
-                  <code>PaginationRender</code> 实例都会继承这些属性。
+                  <code>ElPaginationAdapter</code> 实例都会继承这些属性。
                 </ElText>
 
                 <ElAlert
@@ -587,7 +587,7 @@ function getStatusText(status: string) {
                 >
                   <ElDescriptionsItem label="当前全局默认属性">
                     <pre style="margin: 0">{{
-                      JSON.stringify(PaginationRender.defaultProps, null, 2)
+                      JSON.stringify(ElPaginationAdapter.defaultProps, null, 2)
                     }}</pre>
                   </ElDescriptionsItem>
                 </ElDescriptions>
@@ -612,7 +612,7 @@ function getStatusText(status: string) {
               >
                 <div>
                   <ElText tag="b">
-                    属性 (PaginationRenderProps):
+                    属性 (ElPaginationAdapterProps):
                   </ElText>
                   <ul style="margin: 8px 0; padding-left: 20px">
                     <li>
@@ -644,7 +644,7 @@ function getStatusText(status: string) {
 
                 <div>
                   <ElText tag="b">
-                    插槽 (PaginationRenderSlots):
+                    插槽 (ElPaginationAdapterSlots):
                   </ElText>
                   <ul style="margin: 8px 0; padding-left: 20px">
                     <li>
@@ -660,7 +660,7 @@ function getStatusText(status: string) {
                   </ElText>
                   <ul style="margin: 8px 0; padding-left: 20px">
                     <li>
-                      <code>PaginationRender.defaultProps</code>:
+                      <code>ElPaginationAdapter.defaultProps</code>:
                       设置全局默认属性，支持
                       background、layout、pagerCount、pageSizes
                     </li>

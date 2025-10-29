@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import { PaginationRender, SectionLayout } from '@/element-plus'
+import { ElPaginationAdapter, SectionLayout } from '@/index'
 import App from './App.vue'
 import router from './router'
 import 'element-plus/theme-chalk/index.css'
@@ -11,7 +11,7 @@ createApp(App)
       cardClass: 'el-card el-card__body',
     }
 
-    PaginationRender.defaultProps = {
+    ElPaginationAdapter.defaultProps = {
       background: true,
       layout: 'slot, prev, pager, next, jumper, sizes, total',
       pagerCount: 5,
