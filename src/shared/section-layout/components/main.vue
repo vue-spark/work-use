@@ -3,7 +3,7 @@ import type { SectionMainProps } from '../interface'
 import { toArray } from '@antfu/utils'
 import { useElementSize } from '@vueuse/core'
 import { inject, shallowRef, watch } from 'vue'
-import { createBEM } from '@/internal'
+import { createBEM } from '@/_internal'
 import { SectionLayoutInjectionKey } from '../injection-keys'
 
 defineOptions({

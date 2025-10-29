@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { SectionLayoutConfig, SectionLayoutProps } from './interface'
 import { computed, getCurrentInstance, provide } from 'vue'
-import { createBEM } from '@/internal'
-import { loadCSS } from '@/internal/load-css'
+import { createBEM } from '@/_internal'
+import { loadCSS } from '@/_internal/load-css'
 import css from './index.css?raw'
 import { SectionLayoutInjectionKey } from './injection-keys'
 

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { SectionItemProps } from '../interface'
 import { inject } from 'vue'
-import { createBEM } from '@/internal'
+import { createBEM } from '@/_internal'
 import { SectionLayoutInjectionKey } from '../injection-keys'
 
 defineOptions({

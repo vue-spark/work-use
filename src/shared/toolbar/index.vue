@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ToolbarProps, ToolbarSlots } from './interface'
-import { createBEM } from '@/internal'
-import { loadCSS } from '@/internal/load-css'
+import { createBEM } from '@/_internal'
+import { loadCSS } from '@/_internal/load-css'
 import css from './index.css?raw'
 
 defineOptions({
