@@ -37,15 +37,17 @@ export const ElPaginationAdapter: FunctionalComponent<
   ElPaginationAdapterEmits,
   ElPaginationAdapterSlots
 > & {
-  defaultProps?: Partial<
-    Pick<ElPaginationProps, (typeof defaultPropKeys)[number]>
-  >
+  config?: {
+    defaultProps?: Partial<
+      Pick<ElPaginationProps, (typeof defaultPropKeys)[number]>
+    >
+  }
 } = ({ pagination, ...props }, { attrs, slots }) => {
   const { currentPage, currentPageSize, pageCount, total } = pagination
 
   const finalProps: Partial<ElPaginationProps> = mergeProps(
     objectPick(
-      ElPaginationAdapter.defaultProps || {},
+      ElPaginationAdapter.config?.defaultProps || {},
       defaultPropKeys as Writable<typeof defaultPropKeys>,
     ),
 

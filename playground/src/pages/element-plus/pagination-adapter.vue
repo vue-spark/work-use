@@ -8,7 +8,7 @@ import {
   SectionLayout,
   SectionMain,
   usePagination,
-} from '@/element-plus'
+} from '@/index'
 
 // 配置选项
 const config = reactive({
@@ -106,22 +106,26 @@ const customDefaultPagination = usePagination({
 
 // 配置全局默认属性
 function applyGlobalDefaults() {
-  ElPaginationAdapter.defaultProps = {
-    background: config.background,
-    layout: config.layout,
-    pagerCount: config.pagerCount,
-    pageSizes: config.pageSizes,
+  ElPaginationAdapter.config = {
+    defaultProps: {
+      background: config.background,
+      layout: config.layout,
+      pagerCount: config.pagerCount,
+      pageSizes: config.pageSizes,
+    },
   }
   ElMessage.success('全局默认属性已更新')
 }
 
 // 重置全局默认属性
 function resetGlobalDefaults() {
-  ElPaginationAdapter.defaultProps = {
-    background: true,
-    layout: 'prev, pager, next, jumper, sizes, total',
-    pagerCount: 7,
-    pageSizes: [10, 20, 30, 50, 100],
+  ElPaginationAdapter.config = {
+    defaultProps: {
+      background: true,
+      layout: 'prev, pager, next, jumper, sizes, total',
+      pagerCount: 7,
+      pageSizes: [10, 20, 30, 50, 100],
+    },
   }
   config.background = true
   config.layout = 'prev, pager, next, jumper, sizes, total'
@@ -561,7 +565,7 @@ function getStatusText(status: string) {
               >
                 <ElText>
                   通过
-                  <code>ElPaginationAdapter.defaultProps</code>
+                  <code>ElPaginationAdapter.config.defaultProps</code>
                   可以设置全局默认属性， 所有
                   <code>ElPaginationAdapter</code> 实例都会继承这些属性。
                 </ElText>
@@ -587,7 +591,11 @@ function getStatusText(status: string) {
                 >
                   <ElDescriptionsItem label="当前全局默认属性">
                     <pre style="margin: 0">{{
-                      JSON.stringify(ElPaginationAdapter.defaultProps, null, 2)
+                      JSON.stringify(
+                        ElPaginationAdapter.config?.defaultProps,
+                        null,
+                        2,
+                      )
                     }}</pre>
                   </ElDescriptionsItem>
                 </ElDescriptions>
@@ -660,7 +668,7 @@ function getStatusText(status: string) {
                   </ElText>
                   <ul style="margin: 8px 0; padding-left: 20px">
                     <li>
-                      <code>ElPaginationAdapter.defaultProps</code>:
+                      <code>ElPaginationAdapter.config.defaultProps</code>:
                       设置全局默认属性，支持
                       background、layout、pagerCount、pageSizes
                     </li>
@@ -685,7 +693,8 @@ function getStatusText(status: string) {
                       </li>
                       <li>自动处理页码和每页数量的变化事件</li>
                       <li>
-                        支持通过 <code>defaultProps</code> 设置全局默认属性
+                        支持通过
+                        <code>config.defaultProps</code> 设置全局默认属性
                       </li>
                       <li>
                         完全兼容 Element Plus ElPagination 的所有属性和事件

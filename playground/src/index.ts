@@ -11,11 +11,13 @@ createApp(App)
       cardClass: 'el-card el-card__body',
     }
 
-    ElPaginationAdapter.defaultProps = {
-      background: true,
-      layout: 'slot, prev, pager, next, jumper, sizes, total',
-      pagerCount: 5,
-      pageSizes: [10, 20, 30, 40, 50, 100],
+    ElPaginationAdapter.config = {
+      defaultProps: {
+        background: true,
+        layout: 'slot, prev, pager, next, jumper, sizes, total',
+        pagerCount: 5,
+        pageSizes: [10, 20, 30, 40, 50, 100],
+      },
     }
   })
   .mount('#app')
