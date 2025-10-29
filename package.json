@@ -24,13 +24,12 @@
   ],
   "sideEffects": false,
   "exports": {
-    ".": "./dist/shared/index.js",
-    "./element-plus": "./dist/element-plus/index.js",
+    ".": "./dist/index.js",
     "./package.json": "./package.json"
   },
-  "main": "./dist/shared/index.js",
-  "module": "./dist/shared/index.js",
-  "types": "./dist/shared/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],

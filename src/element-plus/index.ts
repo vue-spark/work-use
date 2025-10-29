@@ -1,5 +1,2 @@
-export * from './pagination-render'
+export * from './pagination-adapter'
 export * from './table-schema-columns'
-
-// Re-export
-export * from '@/shared'
