@@ -5,7 +5,7 @@ export interface DefaultRow {
 }
 
 export type TableColumnSchemaSlots<RawSlots> = {
-  [K in keyof RawSlots]: RawSlots[K]
+  [K in keyof RawSlots]?: RawSlots[K]
 } & {
   [K: string]: (data: any) => VNodeChild
 }
