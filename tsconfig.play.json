@@ -12,5 +12,5 @@
       "unplugin-vue-router/client"
     ]
   },
-  "include": ["playground"]
+  "include": ["playground/**/*", "playground/**/*.vue"]
 }
