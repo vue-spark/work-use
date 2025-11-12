@@ -27,7 +27,7 @@ export interface UsePaginationReturn extends UseOffsetPaginationReturn {
 }
 
 /**
- * 同 `useOffsetPagination`，但返回值里包含 `total`
+ * 基于 `useOffsetPagination` 的扩展版
  */
 export function usePagination(
   options: UsePaginationOptions,
