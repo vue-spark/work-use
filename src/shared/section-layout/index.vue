@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import type { SectionLayoutConfig, SectionLayoutProps } from './interface'
-import { computed, getCurrentInstance, provide } from 'vue'
+import type { SectionLayoutProps } from './interface'
+import { computed, provide } from 'vue'
 import { createBEM } from '@/_internal'
 import { loadCSS } from '@/_internal/load-css'
+import { useSetupConfig } from '@/setup-config'
 import css from './index.css?raw'
 import { SectionLayoutInjectionKey } from './injection-keys'
 
@@ -15,10 +16,7 @@ const props = defineProps<SectionLayoutProps>()
 
 loadCSS()
 
-const { config } = getCurrentInstance()!.proxy!.$options as {
-  config?: SectionLayoutConfig
-}
-
+const config = useSetupConfig().SectionLayout
 const bem = createBEM('section')
 
 provide(SectionLayoutInjectionKey, {

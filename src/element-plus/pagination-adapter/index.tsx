@@ -9,6 +9,8 @@ import type { UsePaginationReturn } from '@/shared/use-pagination'
 import { objectPick } from '@antfu/utils'
 import { ElPagination } from 'element-plus'
 import { mergeProps } from 'vue'
+import { useSetupConfig } from '@/setup-config'
+import { defaultPropKeys } from './default-prop-keys'
 
 export interface ElPaginationAdapterProps
   extends Partial<
@@ -25,29 +27,17 @@ export interface ElPaginationAdapterEmits extends ElPaginationEmits {}
 export interface ElPaginationAdapterSlots
   extends ComponentSlots<typeof ElPagination> {}
 
-const defaultPropKeys = [
-  'background',
-  'layout',
-  'pagerCount',
-  'pageSizes',
-] as const
-
 export const ElPaginationAdapter: FunctionalComponent<
   ElPaginationAdapterProps,
   ElPaginationAdapterEmits,
   ElPaginationAdapterSlots
-> & {
-  config?: {
-    defaultProps?: Partial<
-      Pick<ElPaginationProps, (typeof defaultPropKeys)[number]>
-    >
-  }
-} = ({ pagination, ...props }, { attrs, slots }) => {
+> = ({ pagination, ...props }, { attrs, slots }) => {
+  const config = useSetupConfig().ElementPlus?.ElPaginationAdapter
   const { currentPage, currentPageSize, pageCount, total } = pagination
 
   const finalProps: Partial<ElPaginationProps> = mergeProps(
     objectPick(
-      ElPaginationAdapter.config?.defaultProps || {},
+      config?.defaultProps || {},
       defaultPropKeys as Writable<typeof defaultPropKeys>,
     ),
 

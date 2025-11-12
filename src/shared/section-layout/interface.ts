@@ -1,12 +1,5 @@
 import type { Arrayable } from 'type-fest'
 
-export interface SectionLayoutConfig {
-  /**
-   * 内置卡片样式类名，方便统一设置卡片样式
-   */
-  cardClass?: any
-}
-
 export interface ElementSize {
   width: number
   height: number

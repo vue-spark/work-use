@@ -1,8 +1,8 @@
 import type { InjectionKey } from 'vue'
-import type { SectionLayoutConfig } from './interface'
 import type { BEM } from '@/_internal'
+import type { SetupConfig } from '@/setup-config'
 
 export const SectionLayoutInjectionKey: InjectionKey<{
   bem: BEM
-  config: SectionLayoutConfig | undefined
+  config: SetupConfig['SectionLayout']
 }> = Symbol('')
