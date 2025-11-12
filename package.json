@@ -52,10 +52,14 @@
   },
   "peerDependencies": {
     "element-plus": "^2.11.5",
-    "vue": "^3.5.22"
+    "vue": "^3.5.22",
+    "vxe-table": "^4.17.14"
   },
   "peerDependenciesMeta": {
     "element-plus": {
+      "optional": true
+    },
+    "vxe-table": {
       "optional": true
     }
   },
