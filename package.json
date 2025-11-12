@@ -40,7 +40,6 @@
   "scripts": {
     "dev": "tsdown --watch",
     "build": "tsdown",
-    "build:treeshake": "tsdown --config tests-treeshake/tsdown.config.ts",
     "play": "vite",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
@@ -95,7 +94,8 @@
     "vitest": "^3.2.4",
     "vue": "^3.5.22",
     "vue-router": "^4.6.3",
-    "vue-tsc": "^3.1.1"
+    "vue-tsc": "^3.1.1",
+    "vxe-table": "^4.17.4"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"

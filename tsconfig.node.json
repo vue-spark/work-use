@@ -7,5 +7,5 @@
     "types": ["node"],
     "noEmit": true
   },
-  "include": ["*.config.*", "tests-treeshake/*.config.*"]
+  "include": ["*.config.*"]
 }

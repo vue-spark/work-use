@@ -1,1 +1,0 @@
-export { ElPaginationAdapter } from '../dist'
