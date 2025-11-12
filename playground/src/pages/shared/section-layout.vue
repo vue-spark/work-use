@@ -1,56 +1,11 @@
 <script setup lang="ts">
-import type { ElementSize, SectionLayoutDirection } from '@/shared'
-import { reactive, ref } from 'vue'
-import { SectionItem, SectionLayout, SectionMain } from '@/shared'
-
-// 布局配置
-const layoutConfig = reactive({
-  direction: 'vertical' as SectionLayoutDirection,
-  useNested: false,
-})
-
-// 主内容区域尺寸
-const mainSize = ref({ width: 0, height: 0 })
-
-// 处理主内容区域尺寸变化
-function handleMainResize(data: ElementSize) {
-  mainSize.value = data
-}
+import { SectionLayout, SectionMain } from '@/shared'
 </script>
 
 <template>
-  <SectionLayout v-bind="layoutConfig">
-    <!-- 顶部配置区域 -->
-    <SectionItem card>
-      <ElSpace
-        direction="vertical"
-        style="width: 100%"
-      >
-        <ElSpace>
-          <ElText> 布局方向: </ElText>
-          <ElRadioGroup v-model="layoutConfig.direction">
-            <ElRadio value="vertical">
-              纵向
-            </ElRadio>
-            <ElRadio value="horizontal">
-              横向
-            </ElRadio>
-          </ElRadioGroup>
-        </ElSpace>
-
-        <ElSpace>
-          <ElText> 使用嵌套布局: </ElText>
-          <ElSwitch v-model="layoutConfig.useNested" />
-        </ElSpace>
-      </ElSpace>
-    </SectionItem>
-
+  <SectionLayout>
     <!-- 主内容区域 -->
-    <SectionMain
-      v-if="!layoutConfig.useNested"
-      card
-      :on-resize="handleMainResize"
-    >
+    <SectionMain card>
       <template #default="{ width, height }">
         <div style="padding: 16px">
           <ElText tag="b">
@@ -88,59 +43,6 @@ function handleMainResize(data: ElementSize) {
         </div>
       </template>
     </SectionMain>
-
-    <!-- 嵌套布局示例 -->
-    <SectionLayout
-      v-else
-      :direction="
-        layoutConfig.direction === 'vertical' ? 'horizontal' : 'vertical'
-      "
-    >
-      <SectionItem
-        card
-        style="padding: 16px"
-      >
-        <ElText tag="b">
-          {{ layoutConfig.direction === 'vertical' ? '左侧' : '顶部' }}次分区
-        </ElText>
-      </SectionItem>
-
-      <SectionMain
-        card
-        :on-resize="handleMainResize"
-      >
-        <div style="padding: 16px">
-          <ElText tag="b">
-            嵌套布局的主分区
-          </ElText>
-          <ElText>
-            这是一个嵌套的 SectionLayout，它会自动作为主分区填充剩余空间。
-          </ElText>
-        </div>
-      </SectionMain>
-
-      <SectionItem
-        card
-        style="padding: 16px"
-      >
-        <ElText tag="b">
-          {{ layoutConfig.direction === 'vertical' ? '右侧' : '底部' }}次分区
-        </ElText>
-      </SectionItem>
-    </SectionLayout>
-
-    <!-- 底部信息区域 -->
-    <SectionItem card>
-      <ElAlert
-        type="success"
-        :closable="false"
-        show-icon
-      >
-        <template #title>
-          <span>底部信息 - 这是一个 SectionItem，可以放置任意内容</span>
-        </template>
-      </ElAlert>
-    </SectionItem>
   </SectionLayout>
 </template>
 
